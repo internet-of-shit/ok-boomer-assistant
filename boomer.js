@@ -6,10 +6,16 @@ const express = require('express');
 const chalk = require('chalk');
 const errorHandler = require('errorhandler');
 
+
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
  */
 dotenv.config({ path: '.env' });
+
+/*
+ *  Controllers
+*/
+const redditThreadController = require('./controllers/reddit-thread-grab.js');
 
 /**
  * Express configuration.
@@ -35,6 +41,9 @@ app.use(errorHandler());
 app.listen(app.get('port'), () => {
   console.log('%s OK! BOOMER is running at http://localhost:%d in %s mode', chalk.green('✓'), app.get('port'), app.get('env'));
   console.log('  Press CTRL-C to stop\n');
+
+  redditThreadController.updateBrain();
+
 });
 
 

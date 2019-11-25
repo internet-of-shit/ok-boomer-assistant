@@ -2,6 +2,7 @@
   "name": "ok-boomer-assistant",
   "version": "1.0.0",
   "description": "If “OK Boomer” was a digital assistant like “OK Google” what sorts of answers would it give you to certain questions?",
+  "type": "module",
   "main": "boomer.js",
   "scripts": {
     "start": "node boomer.js",
@@ -26,6 +27,7 @@
   },
   "homepage": "https://github.com/internet-of-shit/ok-boomer-assistant#readme",
   "dependencies": {
+    "@r/api-client": "^3.37.0",
     "chalk": "^3.0.0",
     "compression": "^1.7.4",
     "dotenv": "^8.2.0",
