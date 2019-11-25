@@ -1,0 +1,36 @@
+{
+  "name": "ok-boomer-assistant",
+  "version": "1.0.0",
+  "description": "If “OK Boomer” was a digital assistant like “OK Google” what sorts of answers would it give you to certain questions?",
+  "main": "boomer.js",
+  "scripts": {
+    "start": "node boomer.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/internet-of-shit/ok-boomer-assistant.git"
+  },
+  "keywords": [
+    "node",
+    "nodejs",
+    "ai",
+    "assistant",
+    "ok",
+    "boomer"
+  ],
+  "author": "geckse",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/internet-of-shit/ok-boomer-assistant/issues"
+  },
+  "homepage": "https://github.com/internet-of-shit/ok-boomer-assistant#readme",
+  "dependencies": {
+    "chalk": "^3.0.0",
+    "compression": "^1.7.4",
+    "dotenv": "^8.2.0",
+    "errorhandler": "^1.5.1",
+    "express": "^4.17.1",
+    "snoowrap": "^1.20.1"
+  }
+}
