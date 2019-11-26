@@ -29,7 +29,7 @@ const r = new snoowrap({
 exports.updateBrain = () => {
 
   console.log('%s Starting brain 🧠 update ...', chalk.green('✓'));
-  r.getSubmission('e18g6m').comments.fetchMore({amount: 20, skipReplies: true, append: true}).then((result)=>{
+  r.getSubmission(process.env.REDDIT_SUBMISSIONID).comments.fetchMore({amount: 20, skipReplies: true, append: true}).then((result)=>{
     for (var i = 0; i < result.length; i++) {
       let entry = result[i];
 
