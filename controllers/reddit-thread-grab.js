@@ -14,6 +14,11 @@ db.run(`CREATE TABLE IF NOT EXISTS complex_ai (
   author TEXT NOT NULL);
 `);
 
+db.run(`SELECT ? FROM complex_ai`, '', (err,row)=>{
+  console.log(err);
+  console.log(row);
+});
+
 const r = new snoowrap({
   userAgent: process.env.REDDIT_USERAGENT,
   clientId: process.env.REDDIT_CLIENTID,
@@ -33,11 +38,13 @@ exports.updateBrain = () => {
     for (var i = 0; i < result.length; i++) {
       let entry = result[i];
 
-      console.log(parseBoomerLanguage(entry.body));
-      /*var stmt = db.run(`
-        INSERT OR IGNORE INTO complex_ai (comment_id, question, answer, author) VALUES (?, ?, ?, ?)
-        UPDATE my_table SET question = ?, answer = ?, author = ? WHERE comment_id='Karen'
-      `);*/
+      let totallyAIParsedData = parseBoomerLanguage(entry.body);
+      if(totallyAIParsedData.success){
+        db.run(`
+          INSERT OR IGNORE INTO complex_ai (comment_id, question, answer, author) VALUES ('`+entry.id+`', '`+totallyAIParsedData.question+`', '`+totallyAIParsedData.answer+`', '`+entry.author.name+`');
+          UPDATE my_table SET question = '`+totallyAIParsedData.question+`', answer = '`+totallyAIParsedData.answer+`', author = '`+entry.author.name+`' WHERE comment_id='`+entry.id+`'
+        `);
+      }
     }
 
   });
