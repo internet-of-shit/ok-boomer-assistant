@@ -29,10 +29,9 @@ const r = new snoowrap({
 exports.updateBrain = () => {
 
   console.log('%s Starting brain 🧠 update ...', chalk.green('✓'));
-
-  r.getSubmission('e18g6m').expandReplies({limit: 2, depth: 0}).then((result)=>{
-    for (var i = 0; i < result.comments.length; i++) {
-      let entry = result.comments[i];
+  r.getSubmission('e18g6m').comments.fetchMore({amount: 20, skipReplies: true, append: true}).then((result)=>{
+    for (var i = 0; i < result.length; i++) {
+      let entry = result[i];
 
       console.log(parseBoomerLanguage(entry.body));
       /*var stmt = db.run(`
@@ -51,7 +50,7 @@ exports.updateBrain = () => {
  parseBoomerLanguage = function(text){
    var result = false;
    var edited = text.replace(/\"/g, "").replace(/\'/g, "").replace(/“/g, "").replace(/”/g, "");
-   var boomerRegEx = /(^ok(.{1})boomer)(.{1})/gim;
+   var boomerRegEx = /(^(hey|ok)(.{1,2})boomer)(.{1})/gim;
    var matches = edited.match(boomerRegEx);
    if(!matches) return {
      success: false,
@@ -59,10 +58,10 @@ exports.updateBrain = () => {
    };
 
    var sentence = edited.replace(boomerRegEx,"");
-   var firstLine = sentence.split('\n')[0].trim();
-   var answer = sentence.replace(firstLine,"").trim();
+   var firstLine = sentence.split('\n')[0].replace(/\r?\n|\r/g,"").trim();
+   var answer = sentence.replace(firstLine,"").replace(/\r?\n|\r/g,"").trim();
    return {
-     success: true,
+     success: (answer.length && firstLine.length ? true : false),
      question: firstLine,
      answer: answer
    };
